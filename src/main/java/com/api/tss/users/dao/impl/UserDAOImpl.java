@@ -34,4 +34,14 @@ public class UserDAOImpl implements UserDAO {
 		
 	}
 
+	@Override
+	public String deleteUser(String id) {
+		// TODO Auto-generated method stub
+		 try{
+			 repo.delete(id);
+			 return "DELETED";
+		 }catch(Exception e){ return "NOT DELETED";}
+		
+	}
+
 }

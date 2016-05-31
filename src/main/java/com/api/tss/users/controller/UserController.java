@@ -57,4 +57,10 @@ public class UserController {
 		return userService.getUser(id);
 		
 	}
+	@RequestMapping(value="/deleteuser",method=RequestMethod.POST)
+	public String deleteUser(@RequestParam("id") String id){
+		return userService.deleteUser(id);
+	}
+	
+	
 }

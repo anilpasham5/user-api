@@ -17,8 +17,11 @@ Enter mobile:<input name="mobile"><br>
 <form action="./getuser" method="post">
 Enter User Id:<input name="id"><input type="submit" value="GET HIM">
 </form><br>
-<form action="./getallusers">
+<form action="./deleteuser" method="post">
+Enter User Id:<input name="id"><input type="submit" value="DELETE">
+</form><br>
+<form action="./getallusers" >
 <button type="submit">Get All Users</button>
-</form>
+</form><br>
 </body>
 </html>

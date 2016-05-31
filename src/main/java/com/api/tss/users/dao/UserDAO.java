@@ -10,4 +10,5 @@ public interface UserDAO {
 	public boolean saveUser(Users user);
 	List<Users> getAllEmployees();
 	Users getUser(String id);
+	String deleteUser(String id);
 }

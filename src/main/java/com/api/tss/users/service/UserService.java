@@ -9,4 +9,5 @@ public interface UserService {
 	public boolean userRegistration(UserPojo user);
 	List<UserPojo> getAllEmployees();
 	UserPojo getUser(String id);
+	String deleteUser(String id);
 } 
