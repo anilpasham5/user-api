@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+		xmlns="http://www.springframework.org/schema/beans" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xmlns:context="http://www.springframework.org/schema/context" 
+		xmlns:mvc="http://www.springframework.org/schema/mvc"
+		xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+							http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+       http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
+<!-- Activate annotation configured components -->
+<context:annotation-config/>
+<mvc:annotation-driven />
+   <mvc:resources mapping="/resources/**" location="/resources/" />
+   <mvc:resources mapping="/static/**" location="/static/" />
+<!-- Scan components for annotations within the configured package --> 
+<context:component-scan base-package="com.api.tss.users.controller"/>
+  <bean id="userService" class="com.api.tss.users.service.impl.UserServiceImpl"></bean>
+  <bean id="userDAO" class="com.api.tss.users.dao.impl.UserDAOImpl"></bean>
+<mongo:repositories base-package="com.api.tss.users.repo" />
+<!-- 
+ <bean id="ApplicationProperties" class="com.api.tss.utils.TssUtils">
+  
+    <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
+    <property name="locations">
+    <list>
+        <value>classpath:tss.${ENV}.properties</value>
+        
+    </list>
+    </property>
+</bean>  -->
+
+
+<!--  <bean id="ViewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean> -->
+<!-- Define the MongoTemplate which handles connectivity with MongoDB --> 
+<!-- <bean id="multi	partResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/> -->
+<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
+		<property name="writeConcern" value="SAFE" />
+</bean>
+ <!-- Factory bean that creates the Mongo instance -->
+<mongo:db-factory id="mongoDbFactory" host="localhost"
+			port="27017" dbname="simpleapi"/>
+
+
+<!-- Use this post processor to translate any MongoExceptions thrown in @Repository annotated classes --> 
+<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/> 
+<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <property name="maxUploadSize" value="50000000"/>
+</bean>
+</beans> 
